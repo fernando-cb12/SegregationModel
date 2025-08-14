@@ -66,28 +66,29 @@ class SegregationModel(ap.Model):
 parameters = {
     'want_similar': 0.3, # For agents to be happy
     'n_groups': 2, # Number of groups
-    'density': 0.60, # Density of population
-    'size': 100, # Height and length of the grid
+    'density': 0.95, # Density of population
+    'size': 50, # Height and length of the grid
     'steps': 50  # Maximum number of steps
     }
 
 model = SegregationModel(parameters)
 model.setup()
 
-fig, ax = plt.subplots(figsize=(6, 6))
+figure, axes = plt.subplots(figsize=(6, 6))
 sns.set_style("white")
 
 def update_frame(frame):
-    ax.clear()
+    axes.clear()
     model.update()
-    model.step()
+    model.step() 
+    model.t += 1
     group_grid = model.grid.attr_grid('group')
     cmap = plt.get_cmap('Accent', parameters['n_groups'])
-    ax.imshow(group_grid, cmap=cmap, origin='upper')
-    ax.set_title(f"Paso: {model.t} | Segregación: {model.get_segregation()}")   
-    ax.axis('off')
+    axes.imshow(group_grid, cmap=cmap, origin='upper')
+    axes.set_title(f"Paso: { model.t} | Segregación: {model.get_segregation()}")   
+    axes.axis('off')
 
-ani = animation.FuncAnimation(fig, update_frame, frames=parameters['steps'], interval=200, repeat=False)
+ani = animation.FuncAnimation(figure, update_frame, frames=parameters['steps'] - 1, interval=200, repeat=False)
 
 plt.show()
 
