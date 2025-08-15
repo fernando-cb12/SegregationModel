@@ -65,27 +65,35 @@ class SegregationModel(ap.Model):
         self.report('segregation', self.get_segregation())
 
 parameters = {
-    'want_similar': 0.3, # For agents to be happy
+    'want_similar': 0.7, # For agents to be happy
     'n_groups': 2, # Number of groups
-    'density': 0.95, # Density of population
-    'size': 50, # Height and length of the grid
-    'steps': 50  # Maximum number of steps
+    'density': 0.8, # Density of population
+    'size': 200, # Height and length of the grid
+    'steps': 300  # Maximum number of steps
     }
 
 model = SegregationModel(parameters)
 model.setup()
 
-fig, ax = plt.subplots(figsize=(6, 6))
+fig, ax = plt.subplots(figsize=(8, 8))
 sns.set_style("white")
 
 def update_frame(frame):
     ax.clear()
     model.update()
     model.step()
+
+    if len(model.agents.select(model.agents.happy == False)) == 0:
+        ani.event_source.stop()  # Detener la animación
+        step = frame + 1
+    else:
+        model.step()
+        step = frame + 1
+
     group_grid = model.grid.attr_grid('group')
-    cmap = mcolors.ListedColormap(['red', 'blue'])
+    cmap = mcolors.ListedColormap(["blue", "red"])
     ax.imshow(group_grid, cmap=cmap, origin='upper')
-    ax.set_title(f"Paso: {model.t} | Segregación: {model.get_segregation()}")
+    ax.set_title(f"Paso: {step} | Segregación: {model.get_segregation()}")
     ax.axis('off')
 
 ani = animation.FuncAnimation(fig, update_frame, frames=parameters['steps'], interval=200, repeat=False)
