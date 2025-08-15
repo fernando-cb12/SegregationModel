@@ -4,6 +4,7 @@ import agentpy as ap
 # Visualization
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import matplotlib.colors as mcolors
 import seaborn as sns
 
 class Person(ap.Agent):
@@ -74,25 +75,19 @@ parameters = {
 model = SegregationModel(parameters)
 model.setup()
 
-figure, axes = plt.subplots(figsize=(6, 6))
+fig, ax = plt.subplots(figsize=(6, 6))
 sns.set_style("white")
 
 def update_frame(frame):
-    axes.clear()
+    ax.clear()
     model.update()
-    model.step() 
-    model.t += 1
+    model.step()
     group_grid = model.grid.attr_grid('group')
-    cmap = plt.get_cmap('Accent', parameters['n_groups'])
-    axes.imshow(group_grid, cmap=cmap, origin='upper')
-    axes.set_title(f"Paso: { model.t} | Segregación: {model.get_segregation()}")   
-    axes.axis('off')
+    cmap = mcolors.ListedColormap(['red', 'blue'])
+    ax.imshow(group_grid, cmap=cmap, origin='upper')
+    ax.set_title(f"Paso: {model.t} | Segregación: {model.get_segregation()}")
+    ax.axis('off')
 
-ani = animation.FuncAnimation(figure, update_frame, frames=parameters['steps'] - 1, interval=200, repeat=False)
+ani = animation.FuncAnimation(fig, update_frame, frames=parameters['steps'], interval=200, repeat=False)
 
 plt.show()
-
-
-
-
-
