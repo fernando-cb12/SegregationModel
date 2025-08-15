@@ -20,10 +20,10 @@ pip install seaborn
 
 ## Structure
 
-    agentpy_segregation.ipynb
-        This file contains a jupyter notebook with the segregation example by Uri Wilensky
-    agentpy_segregation.py
-        This file contains our executable python file with improvements
+    agentpy_segregation/
+    ├── agentpy_segregation.py # Core simulation logic for Schelling's segregation model using AgentPy;
+    ├── agentpy_segregation.ipynb # Jupyter notebook for interactive experimentation of the segregation model
+    └── README.md # Project overview, setup instructions, usage examples, and documentation.
 
 ## Overview
 
@@ -35,4 +35,7 @@ On this repo, we will be adding improvements to the agentpy segregation model
 
 #### Authors:
 
-Fernando Camou Bejarano
+Fernando Camou Bejarano A01255376
+Antonio Jesus Calderon Burgos A01255264
+Marco Antonio Ibarra Yedra A01253770
+Luis Carlos Mares Ibarra A01255399
