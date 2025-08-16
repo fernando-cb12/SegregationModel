@@ -50,6 +50,17 @@ On this repo, we will be adding improvements to the agentpy segregation model.
 
 In real-life scenarios, population groups are rarely evenly distributed. Minority groups may experience higher relocation rates due to fewer available neighbors of the same group. This parameter allows you to simulate such scenarios.
 
+#### Executions
+<img width="800" height="670" alt="first execution" src="https://github.com/user-attachments/assets/f52a80f0-af20-4eeb-9613-55b586fea00c" />
+
+<img width="800" height="622" alt="second execution" src="https://github.com/user-attachments/assets/fd944120-3fbf-44a7-96bc-6e76c23694ba" />
+
+<img width="800" height="736" alt="third execution" src="https://github.com/user-attachments/assets/7be0e563-f673-4346-8253-1027ee3d797b" />
+
+<img width="800" height="400" alt="happinesRate" src="https://github.com/user-attachments/assets/710c60a2-cfe9-4800-8b0f-2a167a4200e5" />
+
+This plot shows the evolution of the happiness rate of agents over 100 iterations in the segregation model. At the beginning, only about half of the agents are satisfied with their neighborhood, but as the model progresses and agents relocate, the happiness rate increases rapidly. The growth slows down after around 30 iterations and gradually approaches an upper limit close to 100%, indicating that nearly all agents eventually reach a state of satisfaction. This behavior reflects the self organizing dynamics of Schelling’s segregation model, where even simple relocation rules drive the system toward a stable equilibrium.
+
 #### Authors:
 
 Fernando Camou Bejarano A01255376  
@@ -57,3 +68,6 @@ Antonio Jesus Calderon Burgos A01255264
 Marco Antonio Ibarra Yedra A01253770  
 Luis Carlos Mares Ibarra A01255399  
 Mariangel Jose Loaiza Urbina A00838582
+
+#### References
+Wilensky, U. (1997). NetLogo Segregation model. http://ccl.northwestern.edu/netlogo/models/Segregation. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
