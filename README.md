@@ -18,6 +18,10 @@ pip install seaborn
 
     python agentpy_segregation.py
 
+Or, for interactive experimentation, open the notebook:
+
+    jupyter notebook agentpy_segregation.ipynb
+
 ## Structure
 
     agentpy_segregation/
@@ -27,25 +31,27 @@ pip install seaborn
 
 ## Overview
 
-On this repo, we will be adding improvements to the agentpy segregation model
+On this repo, we will be adding improvements to the agentpy segregation model.
+
+### Features
+
+- **Customizable group proportions:** Simulate scenarios where population groups are not evenly distributed.  
+  Example:
+  ```
+  'group_proportions': [0.6, 0.3, 0.1],  # 60% group 0, 30% group 1, 10% group 2
+  ```
+- **Customized colors:** Each group is visualized with a distinct color. The color palette can be changed by modifying the `cmap` parameter in the visualization code (see the notebook for details).
 
 ### Approach
 
 #### Proportion per color
 
-In real-life scenarios, population groups are rarely evenly distributed. Minority groups may experience higher relocation rates due to fewer available neighbors of the same group. This parameter allows you to simulate such scenarios:
-
-```
-    'group_proportions': [0.6, 0.3, 0.1],  # 70% group 0, 30% group 1, # 10% group 2
-
-```
-
-### Alternative solutions & suggestions
+In real-life scenarios, population groups are rarely evenly distributed. Minority groups may experience higher relocation rates due to fewer available neighbors of the same group. This parameter allows you to simulate such scenarios.
 
 #### Authors:
 
-Fernando Camou Bejarano A01255376
-Antonio Jesus Calderon Burgos A01255264
-Marco Antonio Ibarra Yedra A01253770
-Luis Carlos Mares Ibarra A01255399
-Mariangel
+Fernando Camou Bejarano A01255376  
+Antonio Jesus Calderon Burgos A01255264  
+Marco Antonio Ibarra Yedra A01253770  
+Luis Carlos Mares Ibarra A01255399  
+Mariangel Jose Loaiza Urbina A00838582  
