@@ -4,6 +4,7 @@ import agentpy as ap
 # Visualization
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import matplotlib.colors as mcolors
 import seaborn as sns
 
 class Person(ap.Agent):
@@ -88,37 +89,39 @@ class SegregationModel(ap.Model):
 
 # Updated parameters with proportions
 parameters = {
-    'want_similar': 0.3,   # For agents to be happy
+    'want_similar': 0.5,   # For agents to be happy
     'n_groups': 3,         # Number of groups
     'group_proportions': [0.6, 0.3, 0.1],  # 70% group 0, 30% group 1, # 10% group 2
-    'density': 0.95,       # Density of population
-    'size': 50,            # Height and length of the grid
-    'steps': 100            # Maximum number of steps
+    'density': 0.70,       # Density of population
+    'size': 150,            # Height and length of the grid
+    'steps': 200            # Maximum number of steps
 }
 
 
 model = SegregationModel(parameters)
 model.setup()
 
-figure, axes = plt.subplots(figsize=(6, 6))
+fig, ax = plt.subplots(figsize=(8, 8))
 sns.set_style("white")
 
 def update_frame(frame):
-    axes.clear()
+    ax.clear()
     model.update()
-    model.step() 
-    model.t += 1
-    group_grid = model.grid.attr_grid('group')
-    cmap = plt.get_cmap('Accent', parameters['n_groups'])
-    axes.imshow(group_grid, cmap=cmap, origin='upper')
-    axes.set_title(f"Paso: { model.t} | Segregación: {model.get_segregation()}")   
-    axes.axis('off')
+    model.step()
 
-ani = animation.FuncAnimation(figure, update_frame, frames=parameters['steps'] - 1, interval=200, repeat=False)
+    if len(model.agents.select(model.agents.happy == False)) == 0:
+        ani.event_source.stop()  # Detener la animación
+        step = frame + 1
+    else:
+        model.step()
+        step = frame + 1
+
+    group_grid = model.grid.attr_grid('group')
+    cmap = mcolors.ListedColormap(["#FF5454FF", "#000000FF","#323FAFFF"])
+    ax.imshow(group_grid, cmap=cmap, origin='upper')
+    ax.set_title(f"Paso: {step} | Segregación: {model.get_segregation()}")
+    ax.axis('off')
+
+ani = animation.FuncAnimation(fig, update_frame, frames=parameters['steps'], interval=200, repeat=False)
 
 plt.show()
-
-
-
-
-
