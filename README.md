@@ -42,6 +42,8 @@ On this repo, we will be adding improvements to the agentpy segregation model.
   ```
 - **Customized colors:** Each group is visualized with a distinct color. The color palette can be changed by modifying the `cmap` parameter in the visualization code (see the notebook for details).
 
+- **Visualization of unhappy agents** A new parameter is displayed in the simulation window, showing the number of unhappy agents at each step.
+
 ### Approach
 
 #### Proportion per color
@@ -54,4 +56,4 @@ Fernando Camou Bejarano A01255376
 Antonio Jesus Calderon Burgos A01255264  
 Marco Antonio Ibarra Yedra A01253770  
 Luis Carlos Mares Ibarra A01255399  
-Mariangel Jose Loaiza Urbina A00838582  
+Mariangel Jose Loaiza Urbina A00838582

@@ -119,7 +119,7 @@ def update_frame(frame):
     group_grid = model.grid.attr_grid('group')
     cmap = mcolors.ListedColormap(["#FF5454FF", "#000000FF","#323FAFFF"])
     ax.imshow(group_grid, cmap=cmap, origin='upper')
-    ax.set_title(f"Paso: {step} | Segregación: {model.get_segregation()}")
+    ax.set_title(f"Paso: {step} | Segregación: {model.get_segregation()} | Infelices: {len(model.unhappy)}")
     ax.axis('off')
 
 ani = animation.FuncAnimation(fig, update_frame, frames=parameters['steps'], interval=200, repeat=False)
