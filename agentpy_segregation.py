@@ -13,7 +13,7 @@ class Person(ap.Agent):
         """ Initiate agent attributes. """
         self.grid = self.model.grid
         self.random = self.model.random
-        self.group = self.random.choice(range(self.p.n_groups))
+        self.group = None
         self.share_similar = 0
         self.happy = False
 
@@ -30,6 +30,7 @@ class Person(ap.Agent):
         new_spot = self.random.choice(self.model.grid.empty)
         self.grid.move_to(self, new_spot)
 
+
 class SegregationModel(ap.Model):
 
     def setup(self):
@@ -42,6 +43,27 @@ class SegregationModel(ap.Model):
         self.grid = ap.Grid(self, (s, s), track_empty=True)
         self.agents = ap.AgentList(self, n, Person)
         self.grid.add_agents(self.agents, random=True, empty=True)
+
+        # Assign groups based on proportions
+        proportions = self.p.group_proportions
+        if sum(proportions) != 1:
+            print("Group proportions are not equal to 1")
+
+        # Create list of group IDs with given proportions
+        group_list = []
+        for group_id, prop in enumerate(proportions):
+            group_list.extend([group_id] * int(round(prop * n)))
+
+        # Adjust length in case of rounding errors
+        while len(group_list) < n:
+            group_list.append(0)
+        while len(group_list) > n:
+            group_list.pop()
+
+        # Shuffle and assign
+        self.random.shuffle(group_list)
+        for agent, group_id in zip(self.agents, group_list):
+            agent.group = group_id
 
     def update(self):
         # Update list of unhappy people
@@ -64,13 +86,17 @@ class SegregationModel(ap.Model):
         # Measure segregation at the end of the simulation
         self.report('segregation', self.get_segregation())
 
+
+# Updated parameters with proportions
 parameters = {
-    'want_similar': 0.7, # For agents to be happy
-    'n_groups': 2, # Number of groups
-    'density': 0.8, # Density of population
-    'size': 200, # Height and length of the grid
-    'steps': 300  # Maximum number of steps
-    }
+    'want_similar': 0.5,   # For agents to be happy
+    'n_groups': 3,         # Number of groups
+    'group_proportions': [0.6, 0.3, 0.1],  # 70% group 0, 30% group 1, # 10% group 2
+    'density': 0.70,       # Density of population
+    'size': 150,            # Height and length of the grid
+    'steps': 200            # Maximum number of steps
+}
+
 
 model = SegregationModel(parameters)
 model.setup()
@@ -91,7 +117,7 @@ def update_frame(frame):
         step = frame + 1
 
     group_grid = model.grid.attr_grid('group')
-    cmap = mcolors.ListedColormap(["blue", "red"])
+    cmap = mcolors.ListedColormap(["#FF5454FF", "#000000FF","#323FAFFF"])
     ax.imshow(group_grid, cmap=cmap, origin='upper')
     ax.set_title(f"Paso: {step} | Segregación: {model.get_segregation()}")
     ax.axis('off')
